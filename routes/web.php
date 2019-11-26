@@ -19,3 +19,7 @@ Route::get('/', function () {
 Route::resource('Permission','PermissionController');
 Route::resource('Role','RoleController');
 Route::resource('User','UserController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
