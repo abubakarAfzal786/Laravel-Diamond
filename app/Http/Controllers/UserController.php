@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -11,9 +15,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        return view('pages.User.index');
+        $user=User::orderBy('id','desc')->paginate(10);
+        return view('pages.User.index')->with('user',$user);
 
     }
 
@@ -25,7 +35,7 @@ class UserController extends Controller
     public function create()
     {
         return view('pages.User.create');
-        //
+        
     }
 
     /**
@@ -36,7 +46,35 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = array(
+            // Names In Form
+            'email.required' => 'This Field is Required',
+            'name.required' => 'This Field is Required',
+            'password.required' => 'This Field is Required', 
+        
+            
+    
+            );
+            $rules = array(
+                'email' => 'unique:users,email',
+                'name' => 'required',
+                'password' => 'required|confirmed',
+            
+            );
+            $validator = \Validator::make($request->all(), $rules , $messages);
+            if ($validator->fails())
+            {
+                return Redirect::back()->withErrors($validator);
+            }
+     else
+     {
+        $user=new User();
+        $user->name=request('name');
+        $user->email=request('email');
+        $user->password=Hash::make(request('password'));
+        $user->save();
+        return redirect('User');
+     }
     }
 
     /**
@@ -58,7 +96,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('pages.User.edit');
+        $user=User::where('id',$id);
+        return view('pages.User.edit')->with('user',$user);
 
     }
 
@@ -71,7 +110,30 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $messages = array(
+            // Names In Form
+            'email.required' => 'This Field is Required',
+            'name.required' => 'This Field is Required',
+            'password.required' => 'This Field is Required', 
+        
+            
+    
+            );
+           if()
+            $validator = \Validator::make($request->all(), $rules , $messages);
+            if ($validator->fails())
+            {
+                return Redirect::back()->withErrors($validator);
+            }
+     else
+     {
+        $user=new User();
+        $user->name=request('name');
+        $user->email=request('email');
+        $user->password=Hash::make(request('password'));
+        $user->save();
+        return redirect('User');
+     }
     }
 
     /**

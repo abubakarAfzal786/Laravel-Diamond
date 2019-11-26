@@ -39,7 +39,14 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset ('assets/css/style.css')}}">
     <!-- END: Custom CSS-->
+<style>
 
+.fabutton {
+  background: none;
+  padding: 0px;
+  border: none;
+}
+</style>
 </head>
 <!-- END: Head-->
 
@@ -88,7 +95,7 @@
                         
                
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">John Doe</span><span class="user-status">Available</span></div><span><img class="round" src="../../../app-assets/images/portrait/small/avatar-s-11.png" alt="avatar" height="40" width="40"></span>
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{auth()->user()->name}}</span><span class="user-status">Available</span></div><span><img class="round" src="../../../app-assets/images/portrait/small/avatar-s-11.png" alt="avatar" height="40" width="40"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> Chats</a>
                                 <div class="dropdown-divider"></div><a class="dropdown-item" href="auth-login.html"><i class="feather icon-power"></i> Logout</a>
@@ -117,11 +124,11 @@
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
              
-                <li class=" nav-item"><a href="page-user-profile.html"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Profile">User</span></a>
+                <li class=" nav-item"><a href="{{url('User')}}"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Profile">User</span></a>
                 </li>
-                <li class=" nav-item"><a href="page-faq.html"><i class="fa fa-lock"></i><span class="menu-title" data-i18n="FAQ">Permissions</span></a>
+                <li class=" nav-item"><a href="{{url('Permission')}}"><i class="fa fa-lock"></i><span class="menu-title" data-i18n="FAQ">Permissions</span></a>
                 </li>
-                <li class=" nav-item"><a href="page-knowledge-base.html"><i class="fa fa-tasks"></i><span class="menu-title" data-i18n="Knowledge Base">Roles</span></a>
+                <li class=" nav-item"><a href="{{url('Role')}}"><i class="fa fa-tasks"></i><span class="menu-title" data-i18n="Knowledge Base">Roles</span></a>
                 </li>
                 
                

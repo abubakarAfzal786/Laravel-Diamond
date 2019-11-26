@@ -25,12 +25,12 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-left mb-0">Contenitori</h2>
+                    <h2 class="content-header-title float-left mb-0">User</h2>
                     <div class="breadcrumb-wrapper col-12">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="">Home</a>
                             </li>
-                            <li class="breadcrumb-item active">Contenitori
+                            <li class="breadcrumb-item active">User
                             </li>
                         </ol>
                     </div>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-            <a href="" class="btn btn-primary pull-right"> <i class="fa fa-plus"></i></a>
+            <a href="{{url('User/create')}}" class="btn btn-primary pull-right"> <i class="fa fa-plus"></i></a>
         </div>
     </div>
                     <!-- DataTable starts -->
@@ -58,40 +58,59 @@
                                 <table class="table table-sm zero-configuration">
                                     <thead>
                                     <tr>
-                                        <th> <a href="#">Id </a>  </th>
-                                        <th> <a href="#">Ati </a> </th>
-                                        <th>  <a href="#">Barcode </a> </th>
-                                        <th> <a href="#">	Sonda</a> </th>
-                                        <th> <a href="#"> Vincolo Temp.	</a>  </th>
-                                        <th> <a href="#">	Tipo </a> </th>
-                                        <th> <a href="#">Trasp. Tipo </a> </th>
-                                        <th> <a href="#">ADR	</a> </th>
-                                        <th> <a href="#">ASK	</a> </th>
-                                        <th> <a href="#">Intervallo Giorni Sanificazione	</a> </th>
-                                        <th> <a href="#">Sanificazioni	</a> </th>
-                                        <th> <a href="#">Azioni	</a> </th>
+                                    <th> <a href="#">id</a>  </th>
+
+                                        <th> <a href="#">Name</a>  </th>
+                                        <th> <a href="#">Email </a> </th>
+                                        <th>  <a href="#">Password </a> </th>
+                                    
 
                                     </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($user as $use)
                                     <tr>
-                                        <td>#</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                        <td>#</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
+                                        <td>{{$use->id}}</td>
+                                        <td>{{$use->name}}</td>
+                                        <td>{{$use->email}}</td>
+                                        <td>{{$use->password}}</td>
+
+                                        
 
                                         <td>
-                                            <a class=""><i class="feather icon-edit"></i></a>
-                                            <a class=""><i class="feather icon-trash"></i></a>
-                                        </td>
+                                                        <a href="{{route('User.edit',$use->id)}}" class=""><i
+                                                            class="feather icon-edit" vx-tooltip
+                                                            title="Modifica"></i></a>
+                                               
+                                                            <button class="fabutton"  data-toggle="modal" data-target="#confirm-delete{{$use->id}}">
+                                                                    <i class="feather icon-trash"></i>
+                                                                </button>
+                                                </td>
                                     </tr>
-
+                                    <div class="modal fade" id="confirm-delete{{$use->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                               Do You Really Want to Delete?
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                    <form action="{{route('User.destroy', $use->id)}}" method="POST">
+                                    
+                                                                    @csrf
+                                                            @method('DELETE')
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                   
+                                                                    <button type="submit" class="btn btn-danger btn-ok">Delete</button>
+                                                                </form>
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                            </div>
+                                                       
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+@endforeach
                                     </tfoot>
                                 </table>
                             </div>
