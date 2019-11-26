@@ -11,6 +11,11 @@
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('Permission','PermissionController');
+Route::resource('Role','RoleController');
+Route::resource('User','UserController');
